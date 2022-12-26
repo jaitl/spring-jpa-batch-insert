@@ -16,7 +16,7 @@ import java.time.Instant;
 @Table(name = "sequence_table")
 public class SequenceEntity {
   @Id
-  @SequenceGenerator(name = "sequence_id_auto_gen", allocationSize = 50)
+  @SequenceGenerator(name = "sequence_id_auto_gen", allocationSize = 100)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence_id_auto_gen")
   private Integer id;
 

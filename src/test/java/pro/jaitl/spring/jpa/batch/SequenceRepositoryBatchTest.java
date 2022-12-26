@@ -35,9 +35,7 @@ class SequenceRepositoryBatchTest {
     }
 
     @Test
-    public void test2() throws Exception {
-        long size = 1000;
-
+    public void test2() {
         for (int k = 0; k < 10; k += 1) {
             List<SequenceEntity> sequenceEntities = new ArrayList<>();
             for (int i = 0; i < 100; i += 1) {
@@ -47,7 +45,33 @@ class SequenceRepositoryBatchTest {
                 sequenceEntities.add(entity);
             }
             repository.saveAll(sequenceEntities);
-            Thread.sleep(1000);
+        }
+        assertEquals(1000, repository.count());
+    }
+
+    @Test
+    public void test3() {
+        for (int k = 0; k < 20; k += 1) {
+            List<SequenceEntity> sequenceEntities = new ArrayList<>();
+            for (int i = 0; i < 50; i += 1) {
+                SequenceEntity entity = new SequenceEntity();
+                entity.setName("Test identity number: " + (k + i));
+                entity.setTs(Instant.now());
+                sequenceEntities.add(entity);
+            }
+            repository.saveAll(sequenceEntities);
+        }
+        assertEquals(1000, repository.count());
+    }
+
+    @Test
+    public void test4() {
+        long size = 1000;
+        for (int i = 0; i < size; i += 1) {
+            SequenceEntity entity = new SequenceEntity();
+            entity.setName("Test identity number: " + i);
+            entity.setTs(Instant.now());
+            repository.save(entity);
         }
         assertEquals(size, repository.count());
     }

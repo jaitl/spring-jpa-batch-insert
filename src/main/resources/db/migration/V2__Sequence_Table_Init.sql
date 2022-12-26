@@ -5,4 +5,4 @@ create table sequence_table
     ts    timestamp    default now()
 );
 
-create sequence sequence_id_auto_gen increment 50;
+create sequence sequence_id_auto_gen increment 100;
