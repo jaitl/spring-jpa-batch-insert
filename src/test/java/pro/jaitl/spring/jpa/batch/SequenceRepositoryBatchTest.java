@@ -1,5 +1,7 @@
 package pro.jaitl.spring.jpa.batch;
 
+import org.flywaydb.core.Flyway;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +19,15 @@ class SequenceRepositoryBatchTest {
 
     @Autowired
     private SequenceRepository repository;
+
+    @Autowired
+    private Flyway flyway;
+
+    @BeforeEach
+    public void clear() {
+        flyway.clean();
+        flyway.migrate();
+    }
 
     @Test
     public void test1() {
