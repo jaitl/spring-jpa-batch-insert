@@ -15,22 +15,40 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class SequenceRepositoryBatchTest {
 
-  @Autowired
-  private SequenceRepository repository;
+    @Autowired
+    private SequenceRepository repository;
 
-  @Test
-  public void test() {
-    long size = 1000;
-    List<SequenceEntity> sequenceEntities = new ArrayList<>();
+    @Test
+    public void test1() {
+        long size = 1000;
+        List<SequenceEntity> sequenceEntities = new ArrayList<>();
 
-    for (int i = 0; i < size; i += 1) {
-      SequenceEntity entity = new SequenceEntity();
-      entity.setName("Test identity number: " + i);
-      entity.setTs(Instant.now());
-      sequenceEntities.add(entity);
+        for (int i = 0; i < size; i += 1) {
+            SequenceEntity entity = new SequenceEntity();
+            entity.setName("Test identity number: " + i);
+            entity.setTs(Instant.now());
+            sequenceEntities.add(entity);
+        }
+
+        repository.saveAll(sequenceEntities);
+        assertEquals(size, repository.count());
     }
 
-    repository.saveAll(sequenceEntities);
-    assertEquals(size, repository.count());
-  }
+    @Test
+    public void test2() throws Exception {
+        long size = 1000;
+
+        for (int k = 0; k < 10; k += 1) {
+            List<SequenceEntity> sequenceEntities = new ArrayList<>();
+            for (int i = 0; i < 100; i += 1) {
+                SequenceEntity entity = new SequenceEntity();
+                entity.setName("Test identity number: " + (k + i));
+                entity.setTs(Instant.now());
+                sequenceEntities.add(entity);
+            }
+            repository.saveAll(sequenceEntities);
+            Thread.sleep(1000);
+        }
+        assertEquals(size, repository.count());
+    }
 }
