@@ -1,4 +1,4 @@
-package pro.jaitl.spring.jpa.batch.pbb;
+package pro.jaitl.spring.jpa.batch.log;
 
 import net.ttddyy.dsproxy.listener.logging.SLF4JLogLevel;
 import net.ttddyy.dsproxy.support.ProxyDataSource;
